@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.xtext.onec/src-gen" editDirectory="/org.xtext.onec.edit/src"
+    editorDirectory="/org.xtext.onec.editor/src" modelPluginID="org.xtext.onec" forceOverwrite="true"
+    modelName="OneC" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.xtext.onec.edit"
+    editorPluginID="org.xtext.onec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase ../src/XOneC.genmodel#//XOneC">
+  <genPackages prefix="OneC" basePackage="org.xtext.onec" disposableProviderFactory="true"
+      fileExtensions="onec" ecorePackage="OneC.ecore#/">
+    <genClasses ecoreClass="OneC.ecore#//Let">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute OneC.ecore#//Let/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Let/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Let/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Let/right"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Let/params"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Let/index"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//FormalParams">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//FormalParams/params"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//For">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute OneC.ecore#//For/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//For/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//For/boundary"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//For/block"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//XExpression"/>
+    <genClasses ecoreClass="OneC.ecore#//If">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//If/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//If/block"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//If/alterblock"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//Operator"/>
+    <genClasses ecoreClass="OneC.ecore#//XModule"/>
+    <genClasses ecoreClass="OneC.ecore#//Parametr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Parametr/value"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//Return">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Return/value"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//Raise">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Raise/value"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//Continuie"/>
+    <genClasses ecoreClass="OneC.ecore#//Break"/>
+    <genClasses ecoreClass="OneC.ecore#//GoTo"/>
+    <genClasses ecoreClass="OneC.ecore#//DateLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute OneC.ecore#//DateLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//OtherExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//OtherExpr/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//OtherExpr/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//OtherExpr/else"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//XConstructorCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute OneC.ecore#//XConstructorCall/constructor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute OneC.ecore#//XConstructorCall/explicitConstructorCall"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//XConstructorCall/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//XBooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute OneC.ecore#//XBooleanLiteral/isTrue"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//Try">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Try/block"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OneC.ecore#//Try/alterblock"/>
+    </genClasses>
+    <genClasses ecoreClass="OneC.ecore#//UndefinedLiteral"/>
+    <genClasses ecoreClass="OneC.ecore#//XNullLiteralLiteral"/>
+  </genPackages>
+</genmodel:GenModel>

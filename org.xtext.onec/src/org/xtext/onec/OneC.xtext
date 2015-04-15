@@ -1,0 +1,209 @@
+grammar org.xtext.onec.OneC 
+	with org.eclipse.xtext.xbase.Xbase
+
+hidden(WS, SL_COMMENT, PREPROCESSOR)
+
+generate oneC "http://www.xtext.org/onec/OneC"
+
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
+
+import "http://ru.spb.awk.onecx" as x
+import "http://www.eclipse.org/xtext/xbase/Xbase" as b
+
+
+Module returns x::XModule:
+	{XModule}
+	BOM?
+	variables+=Vars*
+	methods+=XMethod*
+	block=Block?
+
+;
+
+Vars returns x::XVariables:
+	context=CONTEXT? 
+	=>('Перем' | 'Var')
+	variables+=Variable (=>',' variables+=Variable)* ';'? 
+;
+terminal fragment DIGIT : ('0'..'9');
+
+//terminal COMMA: ',';
+
+terminal BOM: '\uFEFF'; 
+
+terminal CONTEXT:'&' ID;
+
+terminal ID : (('a'..'z'|'A'..'Z'|'_'|'А'..'Я'|'Ё' |'а'..'я'|'ё') ('a'..'z'|'A'..'Z'|'_'|'А'..'Я'|'Ё'|'а'..'я'|'ё' |'0'..'9')*|'?');
+
+
+terminal DATE : '\'' DIGIT DIGIT DIGIT DIGIT '.'? DIGIT DIGIT '.'? DIGIT DIGIT ' '? (DIGIT DIGIT ':'? DIGIT DIGIT ':'? DIGIT DIGIT)? '\'';
+
+terminal NUMERIC : ('+'|'-')? INT ('.' INT);
+
+//terminal SC: ';';
+
+terminal PREPROCESSOR: '#' ID -> '\n' | '#' ID  EOF;
+
+terminal STRING: '"' -> '"' ('"' ->'"')*;
+
+
+
+XMethod returns x::XMethod:
+	Func
+|	Proc
+;
+
+Func returns x::XMethod :
+	context=CONTEXT? 
+	=>(retVal?='Функция' | retVal?='Function') name=ID  '(' params=Params? ')' (public?='Экспорт' | public?='Export')? 
+	 variables+=Vars*
+	block=Block?
+	=>('КонецФункции' | 'EndFunction')
+;
+
+Params returns x::XParams:
+	params+=Parametr (',' params+=Parametr)*
+;
+
+Block returns x::XBlock:
+	operators+=XOperator (';' operators+=XOperator)* ';'?
+;
+
+Proc returns x::XMethod :
+	context=CONTEXT? 
+	=>('Процедура' | 'Procedure') name=ID  '(' params=Params? ')' (public?='Экспорт' | public?='Export')? 
+	variables+=Vars*
+	block=Block?
+	=>('КонецПроцедуры' | 'EndProcedure')
+;
+
+OpSingleAssign:
+	"=="
+;
+
+Parametr returns x::XParam:
+	{Parametr} byVal?=('Знач' | 'ByVal')? name=ID (=>'='  value=OtherExpr)?
+;
+
+
+
+
+
+OpEquality:
+	'<>' | '='
+;
+
+Variable returns x::XVariable:
+	name=ID public?=('Экспорт' | 'Export')?
+;
+
+
+
+XOperator returns x::XOperator:
+	Try | 
+	If | 
+	For | 
+	{Return}('return' | 'Возврат') value=OtherExpr? |
+	{Raise} ('ВызватьИсключение'|'Raise') (value=OtherExpr)? |
+	{Continuie} ('Продолжить' | 'Continue') |
+	{Break} ('Прервать' | 'Break') |
+	{GoTo} ('Перейти' | 'GoTo') | 
+	Let 
+;
+
+
+Let:
+	name=ValidID (=>'=' value=OtherExpr
+		| => '.' {Let.left=current} right=Let
+		| => '(' {Let.left=current} params=FormalParams? ')' => ('[' index+=OtherExpr ']')* (=>'=' value=OtherExpr | =>'.' right=Let )?
+		| => ('[' index+=OtherExpr ']')+ (=>'=' value=OtherExpr | =>'.' right=Let)?
+	)
+;
+
+FormalParams:
+	{FormalParams}
+	(params+=OtherExpr (=>','+ params+=OtherExpr)*
+	| ','+)
+;
+
+FeatureCallID:
+	ValidID
+;
+
+
+
+
+
+For:
+	(('Для'|'For') (
+		(=>'Каждого' | 'Each') name=ID ('From' | 'Из') |
+		name=ID '=' value=OtherExpr ('To' | 'По')
+	) | ('While' | 'Пока'))
+		boundary=OtherExpr ('Цикл'|'Do')
+	block=Block?
+	('КонецЦикла'|'EndDo')
+;
+
+OpOther:
+	'^'
+;
+
+OpUnary:
+	"Not" | "Не" | "-" | "+";
+
+OpAnd:
+	'AND' | 'И';
+
+OpOr:
+	'OR' | 'ИЛИ'
+;
+
+XLiteral returns b::XExpression:
+	XCollectionLiteral |
+	XClosure |
+	XBooleanLiteral |
+	XNumberLiteral |
+	XNullLiteral |
+	XStringLiteral |
+	DateLiteral |
+	XTypeLiteral
+;
+
+DateLiteral returns XExpression :
+	{DateLiteral} value=DATE	
+;
+	
+OtherExpr returns b::XExpression:
+	{OtherExpr} '?(' if=OtherExpr =>',' then=OtherExpr ',' else=OtherExpr ')' | XOrExpression
+;
+	
+XConstructorCall returns XExpression:
+	{XConstructorCall}
+	('new'|'Новый') constructor=QualifiedName
+	(=>explicitConstructorCall?='(' 
+		(
+		    arguments+=OtherExpr (',' arguments+=OtherExpr)*
+		)? 
+	')')?
+	arguments+=XClosure?
+;	
+	
+If:
+	('Если'|'If') condition+=OtherExpr =>('Тогда'|'Then') block+=Block?
+	(=>('ИначеЕсли'|'ElseIf') condition+=OtherExpr =>('Тогда'|'Then')	block+=Block?)?
+	(=>('Иначе'|'Else') alterblock=Block?)?
+	=>('КонецЕсли'|'EndIf')
+;
+
+XBooleanLiteral returns XExpression :
+	{XBooleanLiteral} ('false' | isTrue?='true' |'Ложь' | isTrue?='Истина');
+
+Try returns Operator:
+	{Try} ('Попытка' | 'Try') block+=Block? => ('Исключение' | 'Except') alterblock+=Block? ('КонецПопытки'|'EndTry')
+;
+
+
+
+XNullLiteral returns XExpression :
+	{UndefinedLiteral} 'Неопределено' |{UndefinedLiteral}'Undefined' | {XNullLiteralLiteral} 'Null';
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.xtext.onec/src" modelPluginID="org.xtext.onec"
+    modelName="XOneC" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    runtimeVersion="2.2" language="" usedGenPackages="../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase"
+    importOrganizing="true">
+  <foreignModel>XOneC.ecore</foreignModel>
+  <genPackages prefix="XOneC" basePackage="ru.awk.spb.xonec" disposableProviderFactory="true"
+      dataTypeConverters="true" contentTypeIdentifier="" ecorePackage="XOneC.ecore#/"
+      publicationLocation="">
+    <genClasses ecoreClass="XOneC.ecore#//XModule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XOneC.ecore#//XModule/methods"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XOneC.ecore#//XModule/block"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XOneC.ecore#//XModule/variables"/>
+    </genClasses>
+    <genClasses ecoreClass="XOneC.ecore#//XVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XVariable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XVariable/public"/>
+    </genClasses>
+    <genClasses ecoreClass="XOneC.ecore#//XMethod">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XMethod/retVal"/>
+      <genFeatures notify="false" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference XOneC.ecore#//XMethod/variables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XOneC.ecore#//XMethod/params"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XMethod/context"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XOneC.ecore#//XMethod/block"/>
+    </genClasses>
+    <genClasses ecoreClass="XOneC.ecore#//XParams">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XOneC.ecore#//XParams/params"/>
+    </genClasses>
+    <genClasses ecoreClass="XOneC.ecore#//XParam">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XParam/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XParam/byVal"/>
+    </genClasses>
+    <genClasses ecoreClass="XOneC.ecore#//XOperator"/>
+    <genClasses ecoreClass="XOneC.ecore#//XVariables">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XOneC.ecore#//XVariables/variables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XOneC.ecore#//XVariables/context"/>
+    </genClasses>
+    <genClasses ecoreClass="XOneC.ecore#//XBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XOneC.ecore#//XBlock/operators"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

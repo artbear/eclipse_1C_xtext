@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://www.xtext.org/onec/OneC" 
+       class = "org.xtext.onec.oneC.OneCPackage"
+       genModel = "model/generated/OneC.genmodel" /> 
+	
+  </extension>
+
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated XOneC -->
+      <package
+            uri="http://ru.spb.awk.onecx"
+            class="ru.awk.spb.xonec.XOneC.XOneCPackage"
+            genModel="model/src/XOneC.genmodel"/>
+   </extension>
+
+</plugin>
